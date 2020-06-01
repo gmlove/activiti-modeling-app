@@ -6,7 +6,7 @@
   "author": "Alfresco Software, Ltd.",
   "scripts": {
     "postinstall": "lessc ./node_modules/bpmn-js-properties-panel/styles/properties.less .tmp/bpmn-properties.css",
-    "build": "ng build",
+    "build": "NODE_OPTIONS=\"--max-old-space-size=4096\" ng build --prod",
     "start-dev": "ng serve",
     "start": "http-server dist/modeling-ce/",
     "test": "ng test",
