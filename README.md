@@ -12,6 +12,19 @@
 The Alfresco Modeling Application is an extended version of the [Activiti Modeling application  (AMA)](https://github.com/Activiti/activiti-modeling-app), built using
 [Alfresco Application Development Framework (ADF)](https://github.com/Alfresco/alfresco-ng2-components) components.
 
+## Introduction about the fork
+
+This is a changed version of Alfresco Modeling Application. The main changes are:
+
+1. auth removed
+2. pre-defined some mock data
+
+With the modified version, you can start the modeler quickly without other activiti components. But please be noted that all the persistence related functionality are not supported since it is now a pure frontend app. (Don't be surprise if you see any errors when try to access some persistence functionality.)
+
+A demo has been deployed to hero, you can have a try [here](https://node-bpm-modeler.herokuapp.com/).
+
+The model could be used with the other tool [nodebpm](https://github.com/gmlove/nodebpm/). More info could be found [here](https://github.com/gmlove/nodebpm/).
+
 ## Installing dependencies
 
 Run the following command to install all third-party dependencies:
@@ -49,18 +62,6 @@ npm run build -- --prod
 ```bash
 npm test
 ```
-
-## Running in Docker
-
-First build the application as above.
-
-Then `docker build . -t alfresco/alfresco-apps:latest` to build the image
-
-Start with below (substituting with values for your deployment):
-
-`docker run -it -e APP_CONFIG_OAUTH2_HOST="http://KEYCLOAKHOST/auth/realms/activiti" -e APP_CONFIG_OAUTH2_CLIENTID="activiti" -e APP_CONFIG_BPM_HOST="http://GATEWAYHOST" -p 8080:80 alfresco/alfresco-modeling-app:latest`
-
-If any substitutions don't work then check that the placeholders in `docker-entrypoint.sh` match `src/app.config.json`
 
 ## Browser Support
 
