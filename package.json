@@ -7,7 +7,8 @@
   "scripts": {
     "postinstall": "lessc ./node_modules/bpmn-js-properties-panel/styles/properties.less .tmp/bpmn-properties.css",
     "build": "ng build",
-    "start": "ng serve",
+    "start-dev": "ng serve",
+    "start": "http-server dist/modeling-ce/",
     "test": "ng test",
     "lint": "ng lint",
     "reinstall": "npm run clean && npm install",
@@ -16,8 +17,7 @@
     "dep-graph": "nx dep-graph"
   },
   "husky": {
-    "hooks": {
-    }
+    "hooks": {}
   },
   "repository": {
     "type": "git",
@@ -78,6 +78,7 @@
     "dmn-js": "^6.3.3",
     "dmn-moddle": "^6.0.0",
     "hammerjs": "2.0.8",
+    "http-server": "^0.12.3",
     "intl": "1.2.5",
     "lodash": "4.17.15",
     "minimatch": "3.0.4",
