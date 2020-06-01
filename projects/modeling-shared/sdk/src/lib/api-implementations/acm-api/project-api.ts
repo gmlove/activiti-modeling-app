@@ -17,13 +17,14 @@
 
 import { Injectable } from '@angular/core';
 import { ProjectApi, FetchQueries } from '../../api/project-api.interface';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Project, PROJECT, Release, Pagination, ReleaseEntry, ServerSideSorting, SearchQuery, CollaboratorEntry } from '../../api/types';
 import { map } from 'rxjs/operators';
 import { RequestApiHelper } from './request-api.helper';
 import { ValidationErrors } from '../../interfaces/validation-errors.interface';
 import { PaginatedEntries } from '@alfresco/js-api';
 import { IdentityUserModel } from '@alfresco/adf-core';
+import { mockData } from '../../../mock.data';
 
 export interface BackendProject {
     id: string;
@@ -44,8 +45,9 @@ export class ACMProjectApi implements ProjectApi {
     ) {}
 
     public get(projectId: string): Observable<Project> {
-        return this.requestApiHelper
-            .get(`/modeling-service/v1/projects/${projectId}`)
+        // return this.requestApiHelper
+            // .get(`/modeling-service/v1/projects/${projectId}`)
+        return of(mockData.project)
             .pipe(
                 map((response: any) => response.entry),
                 map(this.createProject.bind(this))
@@ -111,8 +113,9 @@ export class ACMProjectApi implements ProjectApi {
             [search.key]: search.value
         };
 
-        return this.requestApiHelper
-            .get('/modeling-service/v1/projects', { queryParams })
+        // return this.requestApiHelper
+            // .get('/modeling-service/v1/projects', { queryParams })
+        return of(mockData.projects)
             .pipe(
                 map((nodePaging: any) => {
                     return {

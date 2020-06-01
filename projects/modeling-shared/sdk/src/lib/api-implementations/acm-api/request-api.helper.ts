@@ -16,7 +16,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { from, Observable, defer } from 'rxjs';
+import { from, Observable, defer, throwError } from 'rxjs';
 import { AppConfigService, AlfrescoApiService, StorageService } from '@alfresco/adf-core';
 
 export interface RequestApiHelperOptions {
@@ -89,6 +89,7 @@ export class RequestApiHelper {
     }
 
     private request<T>(httpMethod: string, endPoint: string, overriddenOptions?: RequestApiHelperOptions): Observable<T> {
+        return throwError(new Error(`backend for ${endPoint} not supported`));
 
         const options = {
             ...getDefaultOptions(),

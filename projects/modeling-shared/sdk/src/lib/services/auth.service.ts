@@ -19,6 +19,8 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 const indexOf = require('lodash/indexOf');
 
+const disableAuth = true;
+
 @Injectable()
 export class AuthTokenProcessorService {
   private helper;
@@ -28,12 +30,18 @@ export class AuthTokenProcessorService {
   }
 
   getRoles(): string[] {
+    if (disableAuth) {
+      return ['ACTIVITI_MODELER'];
+    }
     const access = this.getValueFromToken<any>('realm_access');
     const roles = access ? access['roles'] : [];
     return roles;
   }
 
   hasToken() {
+    if (disableAuth) {
+      return true;
+    }
     return localStorage.getItem('access_token');
   }
 

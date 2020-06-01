@@ -21,6 +21,7 @@ import { map, concatMap, flatMap } from 'rxjs/operators';
 import { ModelApiInterface } from '../../api/generalmodel-api.interface';
 import { Model, MinimalModelSummary } from '../../api/types';
 import { createBlobFormDataFromStringContent, createBlobFormData } from '../../helpers/utils/createJsonBlob';
+import { mockData } from '../../../mock.data';
 
 export interface ModelResponse<T extends Model> {
     entry: T;
@@ -50,15 +51,16 @@ export class ModelApi<T extends Model, S> implements ModelApiInterface<T, S> {
     constructor(protected modelVariation: ModelApiVariation<T, S>, protected requestApiHelper: RequestApiHelper) { }
 
     public getList(containerId: string): Observable<T[]> {
-        return this.requestApiHelper
-            .get<ModelsResponse<T>>(
-                `/modeling-service/v1/projects/${containerId}/models`,
-                { queryParams: { type: this.modelVariation.contentType, maxItems: 1000 } })
+        // return this.requestApiHelper
+        //     .get<ModelsResponse<T>>(
+        //         `/modeling-service/v1/projects/${containerId}/models`,
+        //         { queryParams: { type: this.modelVariation.contentType, maxItems: 1000 } })
+        return of(mockData.models)
             .pipe(
                 map((nodePaging) => {
                     return nodePaging.list.entries
                         .map(entry => entry.entry)
-                        .map((entry) => this.createEntity(entry, containerId));
+                        .map((entry) => this.createEntity(entry as any, containerId));
                 })
             );
     }
@@ -84,12 +86,13 @@ export class ModelApi<T extends Model, S> implements ModelApiInterface<T, S> {
     }
 
     public retrieve(modelId: string, containerId: string, queryParams?: any): Observable<T> {
-        return this.requestApiHelper
-            .get<ModelResponse<T>>(
-                `/modeling-service/v1/models/${modelId}`,
-                { queryParams: queryParams })
+        // return this.requestApiHelper
+        //     .get<ModelResponse<T>>(
+        //         `/modeling-service/v1/models/${modelId}`,
+        //         { queryParams: queryParams })
+        return of({entry: mockData.modelsPlain[modelId]})
             .pipe(
-                map(response => this.createEntity(response.entry, containerId))
+                map(response => this.createEntity(response.entry as any, containerId))
             );
     }
 
@@ -178,7 +181,8 @@ export class ModelApi<T extends Model, S> implements ModelApiInterface<T, S> {
             responseType: responseType
         };
 
-        return this.requestApiHelper.get<S>(`/modeling-service/v1/models/${modelId}/content`, requestOptions);
+        // return this.requestApiHelper.get<S>(`/modeling-service/v1/models/${modelId}/content`, requestOptions);
+        return of(mockData.modelsXml[modelId] as any);
     }
 
     private createEntity(entity: Partial<T>, containerId: string): T {

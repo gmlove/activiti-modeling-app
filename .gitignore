@@ -57,3 +57,4 @@ Thumbs.db
 src/tsconfig.adfdev.json
 /e2e/.app.config.json
 /src/.app.config.json
+.vscode/
