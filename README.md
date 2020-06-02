@@ -21,7 +21,7 @@ This is a changed version of Alfresco Modeling Application. The main changes are
 
 With the modified version, you can start the modeler quickly without other activiti components. But please be noted that all the persistence related functionality are not supported since it is now a pure frontend app. (Don't be surprise if you see any errors when try to access some persistence functionality.)
 
-A demo has been deployed to hero, you can have a try [here](https://node-bpm-modeler.herokuapp.com/).
+A demo has been deployed to heroku, you can have a try [here](https://node-bpm-modeler.herokuapp.com/).
 
 The model could be used with the other tool [nodebpm](https://github.com/gmlove/nodebpm/). More info could be found [here](https://github.com/gmlove/nodebpm/).
 
